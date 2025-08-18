@@ -1,0 +1,50 @@
+@import url("variables.css");
+
+#chart {
+    width: 100%;
+}
+
+#filter-form {
+    /*     border: 1px solid rebeccapurple;
+ */
+    display: flex;
+    gap: 20px;
+    font-size: 0.9rem;
+    flex-direction: row;
+    font-weight: 600;
+    position: absolute;
+    right: 0;
+    bottom: 15px;
+}
+
+#filter-form select {
+    font-weight: 500;
+    color: var(--font-pry);
+    background-color: var(--hover-card);
+    padding: 5px;
+    border-radius: 5px;
+    outline: none;
+    transition: 0.2s;
+    border: 1px solid var(--separator);
+    cursor: pointer;
+}
+
+#filter-form select:focus {
+    border-color: var(--theme);
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 886px) {
+    .contain {
+        overflow: auto;
+    }
+
+    .card {
+        width: 1200px;
+        margin-left: 850px;
+    }
+}

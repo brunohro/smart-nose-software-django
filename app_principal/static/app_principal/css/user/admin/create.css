@@ -1,0 +1,401 @@
+@import url("../../variables.css");
+
+.users-list-contain {
+    gap: 20px !important;
+}
+
+.input-search-contain {
+    width: 100%;
+    position: relative;
+    /*     border: 1px solid yellow;
+ */
+}
+
+.input-search-contain input {
+    font-size: 1rem;
+    min-width: 40%;
+    background-color: var(--hover-card);
+    color: var(--font-pry);
+    padding: 5px 5px 5px 30px;
+    border-radius: 5px;
+    border: 1px solid var(--separator);
+    outline: none;
+    transition: 0.3s;
+}
+
+.input-search-contain i {
+    position: absolute;
+    left: 8px;
+    bottom: 10px;
+    cursor: pointer;
+}
+
+.input-search-contain input:focus {
+    border-color: var(--theme);
+    transition: 0.3s;
+}
+
+table {
+    position: relative;
+    width: 100%;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    table-layout: fixed; /* Mantém as colunas alinhadas corretamente */
+}
+
+thead {
+    position: absolute;
+    top: 0;
+    z-index: 1; /* Garante que o thead fique acima do tbody durante a rolagem */
+}
+
+thead tr {
+    border-radius: 3px;
+    background-color: var(--bg);
+}
+
+tbody {
+    display: block;
+    margin-top: 40px;
+    height: 55vh; /* Define uma altura para o tbody para permitir a rolagem */
+    overflow-y: auto; /* Adiciona rolagem vertical */
+}
+
+tbody tr {
+    display: table;
+    width: 100%;
+    border-bottom: 1px solid var(--separator);
+    table-layout: fixed; /* Garante o alinhamento das colunas no tbody */
+}
+
+thead tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed; /* Mantém o alinhamento correto do thead */
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+    white-space: nowrap; /* Evita quebras de linha indesejadas */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Trunca o texto se for muito longo */
+}
+
+/* Especificando largura das colunas */
+th:nth-child(1),
+td:nth-child(1) {
+    width: 20%; /* Define a largura para o nome */
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+    width: 25%; /* Define a largura para o e-mail */
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+    width: 15%; /* Define a largura para a data */
+}
+
+th:nth-child(4),
+td:nth-child(4) {
+    width: 20%; /* Define a largura para a coluna "É um administrador" */
+}
+
+th:nth-child(5),
+td:nth-child(5) {
+    flex: 1; /* Define a largura para a coluna de ações */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#btn-delete-user {
+    width: 35px;
+    height: 35px;
+    background-color: transparent;
+    border-radius: 5px;
+    color: var(--font-sec);
+    border: 1px solid var(--separator);
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#btn-delete-user:hover {
+    color: var(--font-pry);
+    background-color: var(--hover-card);
+    border-color: var(--font-pry);
+    transition: 0.2s;
+}
+
+#btn-add-new-user {
+    width: 250px;
+    font-size: 1rem;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 10px;
+    background-color: var(--button);
+    color: var(--font-pry);
+    cursor: pointer;
+}
+
+.form-add-new-user {
+    position: relative;
+    width: 35%;
+    gap: 30px;
+}
+
+#btn-close-modal-form {
+    height: 30px;
+    width: 30px;
+    padding-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    border-radius: 5px;
+    top: 20px;
+    right: 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--font-sec);
+    transition: 0.2s;
+    border: 1px solid transparent;
+}
+
+#btn-close-modal-form:hover,
+.more-actions-button:hover {
+    color: var(--font-pry);
+    border: 1px solid var(--separator);
+    background-color: var(--hover-card);
+    transition: 0.2s;
+}
+
+.modal-contain-form {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* From https://css.glass */
+    background: rgba(0, 0, 0, 0.52);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2.1px);
+    -webkit-backdrop-filter: blur(2.1px);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+
+    animation: fadeIn 0.3s ease-in-out;
+    transition: 0.2s all;
+}
+
+/* redundância até generalização da lógica */
+.card-body {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /*     border: 1px solid red;
+ */
+}
+
+.box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    /*     background-color: red;
+ */
+}
+
+.fa-eye,
+.fa-eye-slash {
+    position: absolute;
+    right: 8px;
+    bottom: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.box input {
+    height: 100%;
+    width: 100%;
+    font-size: 1rem;
+    padding: 7px 10px;
+    border: 1px solid var(--separator);
+    background-color: var(--hover-card);
+    border-radius: 5px;
+    outline: none;
+    transition: 0.2s;
+    color: var(--font-pry);
+}
+
+.box input::placeholder {
+    opacity: 0;
+    transition: 0.4s;
+}
+
+.box label {
+    position: absolute;
+    left: 20px;
+    bottom: 8px;
+    pointer-events: none;
+    font-size: 1rem;
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+.box input:focus ~ label,
+.box input:not(:placeholder-shown) ~ label {
+    transform: translateY(-23px);
+    left: 10px;
+    font-size: 0.8rem;
+}
+
+.box input:focus::placeholder {
+    opacity: 1;
+    transition: 0.4s;
+}
+
+.box input:focus {
+    border-color: var(--theme);
+    transition: 0.2s;
+}
+
+.box span {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.box select {
+    width: 50%;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--font-pry);
+    background-color: var(--hover-card);
+    padding: 5px;
+    border-radius: 5px;
+    outline: none;
+    transition: 0.2s;
+    border: 1px solid var(--separator);
+    cursor: pointer;
+}
+
+.box select:focus {
+    border-color: var(--theme);
+    transition: 0.2s;
+}
+
+.error-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.1rem;
+    opacity: 0;
+    color: red !important;
+    transition: 0.3s;
+}
+
+.show-error-message {
+    opacity: 1;
+    font-size: 0.8rem;
+    color: red !important;
+}
+
+.footer-card button {
+    width: 200px;
+    background-color: var(--button);
+    color: var(--font-pry);
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+}
+
+.close-modal-contain {
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s all;
+}
+
+.modal {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 20px;
+    background-color: var(--card);
+    color: var(--font-pri);
+    width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 5;
+    border-radius: 5px;
+    border: 1px solid var(--separator);
+}
+
+.body-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: justify;
+    gap: 10px;
+}
+
+.body-modal h3 {
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+.body-modal p {
+    font-size: 0.9rem;
+    color: var(--font-sec);
+}
+
+.footer-modal {
+    border-top: 1px solid var(--separator);
+    padding-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-modal button {
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    color: var(--button);
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+@media screen and (max-width: 886px) {
+    .users-list-contain {
+        width: 1200px;
+        margin-left: 850px;
+    }
+
+    .form-add-new-user {
+        width: 90%;
+    }
+}

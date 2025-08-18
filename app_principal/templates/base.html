@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Meu Projeto{% endblock %}</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'app_principal/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'app_principal/css/style.css' %}">
+</head>
+<body>
+
+    {% block content %}
+    
+    {% endblock %}
+
+    <!-- JS -->
+    <script src="{% static 'app_principal/js/bootstrap.js' %}"></script>
+    <script src="{% static 'app_principal/js/app.js' %}"></script>
+    <script src="{% static 'app_principal/js/header.js' %}"></script>
+</body>
+</html>

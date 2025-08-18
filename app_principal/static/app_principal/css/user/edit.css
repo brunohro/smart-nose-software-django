@@ -1,0 +1,319 @@
+@import url("../variables.css");
+
+.table-user-data {
+    /*     border: 1px solid red;
+ */
+}
+
+.line,
+.line-blur {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /*     border: 1px solid aqua;
+ */
+}
+
+.line-blur {
+    background-color: var(--hover-card);
+}
+
+.name {
+    width: 30%;
+    /*     border: 1px solid red;
+ */
+}
+
+.value {
+    flex: 1 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    /*     border: 1px solid aqua;
+ */
+}
+
+.box {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    /*     border: 1px solid red;
+ */
+}
+
+.error-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.1rem;
+    opacity: 0;
+    color: red !important;
+    transition: 0.3s;
+}
+
+.show-error-message {
+    opacity: 1;
+    font-size: 0.8rem;
+    color: red !important;
+}
+
+#profileImage {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    object-fit: cover; /* Ajusta a imagem para preencher o contêiner sem distorcer */
+}
+
+#inputName,
+#inputEmail,
+#inputPassword {
+    width: 100%;
+    border: none;
+    border: 2px solid transparent;
+    background-color: transparent;
+    color: var(--font-pri);
+    outline: none;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+.edition-mode {
+    border: 2px solid var(--separator) !important;
+    transition: 0.3s !important;
+}
+
+.edition-mode:focus {
+    border-color: var(--theme) !important;
+    transition: 0.3s !important;
+}
+
+.value input[type="password"] {
+    /*   border: none;
+  background-color: transparent;
+  color: var(--font-pri);
+  outline: none;
+ */
+}
+
+#inputProfileImage {
+    border: 1px solid red;
+    display: none;
+}
+
+#labelProfileImage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: var(--button);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    /*     border: 1px solid red;
+ */
+}
+
+#btn-update-password {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 8px;
+    padding: 10px;
+    width: 180px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background-color: var(--button);
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--font-pri);
+}
+
+.user-info-card-footer {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    /*     border: 1px solid red;
+ */
+}
+
+.user-info-card-footer button {
+    width: 200px;
+    color: var(--font-pri);
+    background-color: var(--button);
+    font-weight: 600;
+    padding: 10px;
+    font-size: max(0.8rem, 1vw);
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.contain-btns-action {
+    width: 40%;
+    gap: 20px;
+    display: none;
+    align-content: center;
+    /*   border: 1px dashed red;
+ */
+    transition: 0.3s;
+}
+
+.contain-btns-action button {
+    width: 200px;
+    border-radius: 5px;
+    font-size: max(0.8rem, 1vw);
+}
+
+.show-action-btns-contain {
+    width: 100%;
+    display: flex;
+    transition: 0.3s;
+}
+
+#btn-edit-user-settings.hide-btn-edit-user-settings {
+    display: none;
+    transition: 0.3s;
+}
+
+#btn-edit-user-settings:hover {
+    background-color: var(--hover-button);
+    transition: 0.3s;
+}
+
+#btn-calcel-edit-user-settings {
+    background-color: #a62534;
+}
+
+.modal-contain {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+
+    /* From https://css.glass */
+    background: rgba(0, 0, 0, 0.52);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2.1px);
+    -webkit-backdrop-filter: blur(2.1px);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+
+    transition: 0.2s all;
+}
+
+.show-modal-contain {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+.modal {
+    position: relative;
+    padding: 20px;
+    background-color: var(--card);
+    color: var(--font-pri);
+    width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 5;
+    border-radius: 5px;
+    border: 1px solid var(--separator);
+}
+
+.header-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-modal img {
+    border-radius: 5px;
+}
+
+.body-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: justify;
+    gap: 10px;
+}
+
+.body-modal h3 {
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+.body-modal p {
+    font-size: 0.9rem;
+    color: var(--font-sec);
+}
+
+.footer-modal {
+    border-top: 1px solid var(--separator);
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.footer-modal button {
+    width: 45%;
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    color: var(--font-pri);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 10px 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#btn-confirm-edition {
+    background-color: var(--button);
+    font-size: max(1vw, 0.8rem);
+}
+
+#btn-cancel-edition {
+    background-color: #a62534;
+    font-size: max(1vw, 0.8rem);
+}
+
+.card-header h2 {
+    font-size: max(2vw, 1.5rem);
+}
+
+@media screen and (max-width: 886px) {
+    .user-info-card {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .modal {
+        width: 95%;
+    }
+}

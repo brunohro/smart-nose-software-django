@@ -1,0 +1,35 @@
+@import url("variables.css");
+
+html {
+    scroll-behavior: smooth;
+}
+
+.sensor-body {
+    text-align: justify;
+    font-weight: 400;
+    font-size: max(0.8rem, 1.1vw);
+    padding-bottom: 20px;
+}
+
+#chart-mq2,
+#chart-mq3,
+#chart-mq5,
+#chart-mq8,
+#chart-mq135 {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*   border: 1px dashed red;
+ */
+}
+
+.sensor-footer {
+}
+
+@media screen and (max-width: 900px) {
+    .sensor {
+        padding: 40px 20px;
+        width: 100%;
+    }
+}
