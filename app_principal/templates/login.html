@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="{% static 'app_principal/images/logo.png' %}">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'app_principal/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'app_principal/css/login.css' %}">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet" />
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/638bd1bffb.js" crossorigin="anonymous"></script>
+
+    <title>{{ project_name }} - Fazer Login</title>
+</head>
+
+<body>
+    {% if show_modal %}
+        <div class="modal-contain">
+            <div class="modal">
+                <div class="body-modal">
+                    <h3>Infelizmente não foi possível prosseguir</h3>
+                    <p>Por favor, confira as informações cedidas e tente novamente.</p>
+                </div>
+                <div class="footer-modal">
+                    <button>OK</button>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <form action="{% url 'login' %}" method="post" id="log-in-form">
+        {% csrf_token %}
+        <div class="header-log-in-form">
+            <img src="{% static 'app_principal/images/enose.png' %}" alt="logo">
+        </div>
+
+        <div class="body-log-in-form">
+            <div class="box">
+                <input type="email" name="email" id="input-email" placeholder="Informe seu email">
+                <label for="input-email">email</label>
+            </div>
+            <div class="error-message" id="email-error-message">
+                <span>
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    preencha o campo acima
+                </span>
+            </div>
+            <div class="box">
+                <input type="password" name="password" id="input-password" placeholder="Informe sua senha">
+                <label for="input-password">senha</label>
+                <i class="fa-regular fa-eye" id="btn-show-password"></i>
+            </div>
+            <div class="error-message" id="password-error-message">
+                <span>
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    preencha o campo acima
+                </span>
+            </div>
+        </div>
+        <div class="footer-log-in-form">
+            <button type="submit">Entrar</button>
+        </div>
+    </form>
+
+    <script type="module" src="{% static 'app_principal/js/login.js' %}"></script>
+</body>
+</html>
