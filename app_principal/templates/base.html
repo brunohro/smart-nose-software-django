@@ -11,6 +11,12 @@
     <link rel="stylesheet" href="{% static 'app_principal/css/style.css' %}">
 </head>
 <body>
+    {% if user.is_authenticated %}
+    <h1>Bem-vindo, {{ user.username }}</h1>
+    {% else %}
+    <a href="{% url 'login' %}">Entrar</a>
+    {% endif %}
+
 
     {% block content %}
     
