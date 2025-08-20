@@ -3,8 +3,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
 
-def index(request):
-    return render(request, 'base.html')
+def dashboard(request):
+    return render(request, 'dashboard.html')
 
 
 def login_view(request):
@@ -16,7 +16,7 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return redirect("index")
+            return redirect("dashboard")
         else:
             messages.error(request, "Email ou senha inválidos")
     return render(request, "login.html", {"project_name": "E-nose"})
@@ -32,4 +32,4 @@ def user_detail(request, pk):
     context = {
         'user_obj': user_obj,
     }
-    return render(request, 'base.html', context)
+    return render(request, 'dashboard.html', context)
