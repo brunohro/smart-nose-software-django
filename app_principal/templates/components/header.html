@@ -1,0 +1,24 @@
+{% load static%}
+<header>
+    <div class="logo-contain">
+        <!-- Arquivos estáticos -->
+        <img src="{% static 'app_principal/images/logo.png' %}" alt="logo">
+        <span class="separator">
+            /
+        </span>
+        
+        <!-- user logado -->
+        <span id="user">
+            Olá, {{ user.username }}
+        </span>
+    </div>
+
+    <!-- Link para o perfil do usuário -->
+    <a class="user" href="{% url 'user_detail' user.id %}">
+        <img src="{{ path_to_profile_image }}" alt="user"> 
+    </a>
+
+    <i class="fa-solid fa-bars" id="btn-menu-mobile"></i>
+</header>
+
+

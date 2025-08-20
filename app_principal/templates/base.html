@@ -2,15 +2,47 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Meu Projeto{% endblock %}</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="{% static 'app_principal/images/logo.png' %}">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'app_principal/css/bootstrap.css' %}">
+    <!-- Variáveis globais e reset -->
+    <link rel="stylesheet" href="{% static 'app_principal/css/variables.css' %}">
     <link rel="stylesheet" href="{% static 'app_principal/css/style.css' %}">
+
+    <!-- Componentes (header, menu, sidebar) -->
+    <link rel="stylesheet" href="{% static 'app_principal/css/components/header.css' %}">
+    <link rel="stylesheet" href="{% static 'app_principal/css/components/menu-mobile.css' %}">
+    <link rel="stylesheet" href="{% static 'app_principal/css/components/sidebar.css' %}">
+
+    <!-- Páginas específicas -->
+    <link rel="stylesheet" href="{% static 'app_principal/css/auth.css' %}">
+    <link rel="stylesheet" href="{% static 'app_principal/css/auth/edit.css' %}">
+    <link rel="stylesheet" href="{% static 'app_principal/css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'app_principal/css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'app_principal/css/user/admin/create.css' %}">
+    <link rel="stylesheet" href="{% static 'app_principal/css/user/edit.css' %}">
+    <link rel="stylesheet" href="{% static 'app_principal/css/user/show.css' %}">
+    <link rel="stylesheet" href="{% static 'app_principal/css/notifications.css' %}">
+    <link rel="stylesheet" href="{% static 'app_principal/css/sensors.css' %}">
+    <link rel="stylesheet" href="{% static 'app_principal/css/temperature.css' %}">
+    <link rel="stylesheet" href="{% static 'app_principal/css/404.css' %}">
+    <link rel="stylesheet" href="{% static 'app_principal/css/alert.css' %}">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/638bd1bffb.js" crossorigin="anonymous"></script>
+
+    <title>{% block title %}Base{% endblock %}</title>
 </head>
 <body>
+
+    {% include "components/header.html" %}
+
     {% if user.is_authenticated %}
     <h1>Bem-vindo, {{ user.username }}</h1>
     {% else %}

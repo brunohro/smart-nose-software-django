@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.contrib.auth.models import User
 
 def index(request):
     return render(request, 'base.html')
@@ -24,3 +25,11 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect("login")
+
+# primary key do user
+def user_detail(request, pk):
+    user_obj = get_object_or_404(User, pk=pk)
+    context = {
+        'user_obj': user_obj,
+    }
+    return render(request, 'base.html', context)
