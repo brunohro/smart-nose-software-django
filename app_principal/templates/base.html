@@ -43,10 +43,15 @@
 <body>
 
     {% include "components/header.html" %}
+    {% include "components/menu_mobile.html" %}
 
-    {% block content %}
-    
-    {% endblock %}
+    <div class="contain">
+        {% include "components/sidebar.html" %}
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+    </div>
 
     <!-- JS -->
     <script src="{% static 'app_principal/js/auth/edit.js' %}"></script>

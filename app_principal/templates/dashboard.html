@@ -42,21 +42,3 @@
 </div>
 {% endblock %}
 
-{% block specific_scripts %}
-<script>
-    // Dados fictícios para o gráfico
-    let mq3Percents = [10, 20, 30, 40, 50];
-    let mq5Percents = [15, 25, 35, 45, 55];
-
-    console.log("MQ3:", mq3Percents);
-    console.log("MQ5:", mq5Percents);
-
-    // Renderização simples do gráfico fictício
-    const chartDiv = document.getElementById('chart');
-    chartDiv.innerHTML = `
-        <div style="display:flex; justify-content:space-around; height:200px; align-items:flex-end; border:1px solid #ccc; padding:10px;">
-            ${mq3Percents.map(v => `<div style="width:20%; height:${v*2}px; background:#4CAF50;"></div>`).join('')}
-        </div>
-    `;
-</script>
-{% endblock %}
