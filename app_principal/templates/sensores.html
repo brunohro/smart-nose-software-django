@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block title %} <!-- title da página -->
+Sensores
+{% endblock %}
+{% block content %}
+   {% if sensors %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tipo</th>
+                    <th>Valor (%)</th>
+                    <th>Criado em</th>
+                </tr>
+            </thead>
+            <tbody> <!-- exibe todos os sensores e seus valores/campos -->
+                {% for sensor in sensors %} 
+                <tr>
+                    <td>{{ sensor.id }}</td>
+                    <td>{{ sensor.tipo_sensor.nome }}</td>
+                    <td>{{ sensor.valor_percentual|floatformat:2 }}</td>
+                    <td>{{ sensor.data_criacao|date:"d/m/Y H:i" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Nenhuma leitura encontrada.</p>
+    {% endif %}
+{% endblock%}

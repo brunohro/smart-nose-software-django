@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
-
+from .models import LeituraSensor
 def dashboard(request):
     return render(request, 'dashboard.html')
 
@@ -33,3 +33,20 @@ def user_detail(request, pk):
         'user_obj': user_obj,
     }
     return render(request, 'dashboard.html', context)
+
+def sensores(request):
+    sensors = LeituraSensor.objects.all()
+    return render(request, 'sensores.html', {'sensors': sensors})
+
+
+
+# def index(request):
+#     produtos = Produto.objects.all()
+#     categoria = Categoria.objects.all()
+
+#     if request.method == 'POST':
+#         query_pesquisa = request.POST.get("search", None)
+#         if query_pesquisa is not None:
+#             produtos = produtos.filter(nome__icontains=query_pesquisa)
+
+#     return render(request, 'index.html', {'produtos': produtos, 'categorias': categoria})
