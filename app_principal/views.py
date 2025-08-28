@@ -38,8 +38,8 @@ def sensores(request):
     sensors = LeituraSensor.objects.all()
     return render(request, 'sensores.html', {'sensors': sensors})
 
-
-
+def temperatura(request):
+    return render(request, 'temperatura.html')
 # def index(request):
 #     produtos = Produto.objects.all()
 #     categoria = Categoria.objects.all()
