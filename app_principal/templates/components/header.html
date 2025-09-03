@@ -14,7 +14,7 @@
     </div>
 
     <!-- Link para o perfil do usuário -->
-    <a class="user" href="{% url 'user_detail' user.id %}">
+    <a class="user" href="{% url 'mostrar_usuario' user.id %}">
     <img src="{% static 'app_principal/images/avatars/' %}{{ user.first_name|slice:":1"|upper }}.png" alt="user"> 
 </a>
 

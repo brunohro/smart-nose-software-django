@@ -1,0 +1,60 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block title %} Informações do usuário {% endblock %}
+
+{% block content %}
+<div class="user-card card" id="about-user">
+    <div class="about">
+        <h1 id="name">{{ user.first_name }}</h1>
+        <span>{{ user.email }}</span>
+        {% with joined_date=user.date_joined %}
+            <span>Juntou-se à equipe E-nose Remoto:</span>
+            <span style="background: var(--separator); padding: 4px; border-radius: 5px;">
+            {{ joined_date|date:"d \\d\\e F \\d\\e Y" }} ({{ joined_date|timesince }} atrás)
+        </span>
+        {% endwith %}
+
+
+        </span>
+    </div>
+    <div class="profile-image">
+        {% if user.profile_image %}
+            <img src="{{ user.profile_image.url }}" alt="user">
+        {% else %}
+            <img src="{% static 'app_principal/images/avatars/' %}{{ user.first_name|slice:":1"|upper }}.png" alt="user"> 
+        {% endif %}
+    </div>
+</div>
+
+<div class="user-info-card card">
+    <div class="card-header">
+        <h2>Informações pessoais</h2>
+    </div>
+    <div class="table-user-data">
+        <div class="line">
+            <span class="name">nome:</span>
+            <span class="value">{{ user.first_name }}</span>
+        </div>
+        <div class="line-blur">
+            <span class="name">e-mail:</span>
+            <span class="value">{{ user.email }}</span>
+        </div>
+        <div class="line">
+            <span class="name">status do e-mail:</span>
+            <span class="value">
+                {% if user.email_verified_at %}
+                    validado
+                {% else %}
+                    não validado
+                {% endif %}
+            </span>
+        </div>
+    </div>
+    <div class="user-info-card-footer">
+        <a href="{% url 'mostrar_usuario' user.id %}" id="btn-edit-user-settings"> 
+            Atualizar perfil
+        </a>
+    </div>
+</div>
+{% endblock %}

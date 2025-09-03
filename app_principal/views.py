@@ -51,6 +51,10 @@ def temperatura(request):
     return render(request, 'temperatura.html')
 
 
+def mostrar_usuario(request, id):
+    usuario = User.objects.get(id=id)
+    return render(request, 'user/mostrar_usuario.html', {'usuario': usuario})
+
 # def cadastrar_usuario(request):
 #     if request.method == 'POST':
 #         form = UsuarioForm(request.POST)
