@@ -2,7 +2,14 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .models import LeituraSensor
+from .models import LeituraSensor #, Usuario
+from django.contrib.auth.decorators import login_required
+# from .forms import UsuarioForm
+
+def index(request):
+    return redirect('login')
+
+@login_required
 def dashboard(request):
     return render(request, 'dashboard.html')
 
@@ -34,19 +41,45 @@ def user_detail(request, pk):
     }
     return render(request, 'dashboard.html', context)
 
+@login_required
 def sensores(request):
     sensors = LeituraSensor.objects.all()
     return render(request, 'sensores.html', {'sensors': sensors})
 
+@login_required
 def temperatura(request):
     return render(request, 'temperatura.html')
-# def index(request):
-#     produtos = Produto.objects.all()
-#     categoria = Categoria.objects.all()
 
+
+# def cadastrar_usuario(request):
 #     if request.method == 'POST':
-#         query_pesquisa = request.POST.get("search", None)
-#         if query_pesquisa is not None:
-#             produtos = produtos.filter(nome__icontains=query_pesquisa)
+#         form = UsuarioForm(request.POST)
+#         if form.is_valid():
+#             user = form.save() 
+#             user.set_password(form.cleaned_data['password'])
+#             user.save()
+#             return redirect('login')
+#     else:
+#         form = UsuarioForm()
+#     return render(request, 'usuarios/cadastrar_usuario.html', {'form': form})
 
-#     return render(request, 'index.html', {'produtos': produtos, 'categorias': categoria})
+# def editar_usuario(request, id):
+#     usuario = get_object_or_404(usuario, id=id)
+#     usuario = usuario.objects.get(id=id)
+#     if request.method == 'POST':
+#         form = usuarioForm(request.POST, instance=usuario)
+#         if form.is_valid():
+#             user = form.save() 
+#             user.set_password(form.cleaned_data['password'])
+#             user.save()
+#             return redirect('index')
+#     else:
+#         form = usuarioForm(instance=usuario)
+#     return render(request, 'usuarios/cadastrar_usuario.html', {'form': form})
+
+# def remover_usuario(request, id):
+#     usuario = get_object_or_404(usuario, id=id)
+#     usuario = usuario.objects.get(id=id)
+#     usuario.delete() 
+#     return redirect('administrador')
+#     #return render(request, 'usuarios/remover_usuario.html', {'usuario': usuario})  # Exibe confirmação para remover
