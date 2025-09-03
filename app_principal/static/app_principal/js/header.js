@@ -1,4 +1,4 @@
-export const addEventListenerInBtnAlterMenuMobile = () => {
+const addEventListenerInBtnAlterMenuMobile = () => {
   const btnMenuMobile = document.getElementById("btn-menu-mobile");
   const menuMobile = document.querySelector(".menu-mobile");
 

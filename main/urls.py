@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from app_principal.views import index, dashboard, login_view, logout_view, user_detail, sensores, temperatura, mostrar_usuario
+from app_principal.views import index, dashboard, login_view, logout_view, user_detail, sensores, temperatura, mostrar_usuario, cadastrar_usuarios, gerir_usuarios
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
@@ -27,5 +27,7 @@ urlpatterns = [
     path('sensores/', sensores, name='sensores'),
     path('temperatura/', temperatura, name='temperatura'),
     path('mostrar_usuario/<int:id>', mostrar_usuario, name='mostrar_usuario'),
+    path('cadastrar_usuarios/', cadastrar_usuarios, name='cadastrar_usuarios'),
+    path('gerir_usuarios/', gerir_usuarios, name='gerir_usuarios'),
 
 ]

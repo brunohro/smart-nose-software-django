@@ -1,0 +1,71 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block title %} Gerir usuários - Admin {% endblock %}
+
+{% block content %}
+<div class="users-list-contain card">
+    <div class="card-header">
+        <h2>Lista de usuários</h2>
+    </div>
+
+    <div class="input-search-contain">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="search" placeholder="Buscar por nome..." id="search-input">
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Entrou</th>
+                <th>É um administrador</th>
+                <th>Excluir</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if users %}
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.get_full_name|default:user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.date_joined|date:"d/m/Y" }}</td>
+                        <td>
+                            {% if user.is_staff %}
+                                <span style="color: #07a007; border: 1px solid #07a007; padding: 3px 5px; border-radius: 5px;">
+                                    Sim
+                                </span>
+                            {% else %}
+                                <span style="color: #f01313; border: 1px solid #f01313; padding: 3px 5px; border-radius: 5px;">
+                                    Não
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <form action="{% url 'cadastrar_usuarios' %}" method="post" class="form-delete-user">
+                                {% csrf_token %}
+                                <button type="submit" id="btn-delete-user">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5" style="text-align: center">
+                        <h2>Nenhum usuário encontrado</h2>
+                    </td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+    <a href="{% url 'cadastrar_usuarios' %}" class="btn" id="btn-add-new-user">
+        <i class="fa-solid fa-circle-plus"></i>
+        Adicionar novo usuário
+    </a>
+</div>
+
+{% endblock %}

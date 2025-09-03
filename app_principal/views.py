@@ -2,9 +2,12 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .models import LeituraSensor #, Usuario
+from .models import LeituraSensor
 from django.contrib.auth.decorators import login_required
-# from .forms import UsuarioForm
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.forms import UserCreationForm
+from django.db.models import Q
+from django.contrib import messages
 
 def index(request):
     return redirect('login')
@@ -55,35 +58,38 @@ def mostrar_usuario(request, id):
     usuario = User.objects.get(id=id)
     return render(request, 'user/mostrar_usuario.html', {'usuario': usuario})
 
-# def cadastrar_usuario(request):
-#     if request.method == 'POST':
-#         form = UsuarioForm(request.POST)
-#         if form.is_valid():
-#             user = form.save() 
-#             user.set_password(form.cleaned_data['password'])
-#             user.save()
-#             return redirect('login')
-#     else:
-#         form = UsuarioForm()
-#     return render(request, 'usuarios/cadastrar_usuario.html', {'form': form})
+def gerir_usuarios(request):
+    search_query = request.GET.get('search', '')
+    if search_query:
+        users = User.objects.filter(
+            Q(username__icontains=search_query) |
+            Q(email__icontains=search_query)
+        ).order_by('username')
+    else:
+        users = User.objects.all().order_by('username')
 
-# def editar_usuario(request, id):
-#     usuario = get_object_or_404(usuario, id=id)
-#     usuario = usuario.objects.get(id=id)
-#     if request.method == 'POST':
-#         form = usuarioForm(request.POST, instance=usuario)
-#         if form.is_valid():
-#             user = form.save() 
-#             user.set_password(form.cleaned_data['password'])
-#             user.save()
-#             return redirect('index')
-#     else:
-#         form = usuarioForm(instance=usuario)
-#     return render(request, 'usuarios/cadastrar_usuario.html', {'form': form})
+    context = {
+        'users': users,
+        'search_query': search_query,
+    }
 
-# def remover_usuario(request, id):
-#     usuario = get_object_or_404(usuario, id=id)
-#     usuario = usuario.objects.get(id=id)
-#     usuario.delete() 
-#     return redirect('administrador')
-#     #return render(request, 'usuarios/remover_usuario.html', {'usuario': usuario})  # Exibe confirmação para remover
+    return render(request, 'user/admin/gerir_usuarios.html', context)
+
+def cadastrar_usuarios(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            # Define se é admin
+            user.is_staff = request.POST.get('is_staff') == 'True'
+            user.save()
+            messages.success(request, f'Usuário {user.username} criado com sucesso!')
+            return redirect('criar_usuario')
+    else:
+        form = UserCreationForm()
+    
+    return render(request, 'user/admin/cadastrar_usuario.html', {
+        'form': form,
+        'errors': form.errors,
+        'success_on_insert': messages.get_messages(request),
+    })

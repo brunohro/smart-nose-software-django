@@ -15,7 +15,7 @@ const hidenMenuSidebar = () => {
   menuSidebar.classList.remove("minimize-menu-sidebar");
 };
 
-export const addEventListenerInBtnAlterMenu = () => {
+const addEventListenerInBtnAlterMenu = () => {
   const { btnAlterMenu, menuSidebar } = getMenuSideBarElements();
 
   btnAlterMenu.addEventListener("click", () => {
@@ -31,7 +31,7 @@ export const addEventListenerInBtnAlterMenu = () => {
   });
 };
 
-/* window.onload = () => {
+ window.onload = () => {
   addEventListenerInBtnAlterMenu();
 };
- */
+ 

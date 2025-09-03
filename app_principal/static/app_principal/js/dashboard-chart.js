@@ -1,4 +1,3 @@
-import ApexCharts from "apexcharts";
 
 var options = {
     series: [
