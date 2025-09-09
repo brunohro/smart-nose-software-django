@@ -1,21 +1,10 @@
-# from django import forms
-# from .models import Usuario
+from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
-# class UsuarioForm(forms.ModelForm):
-#     class Meta:
-#         model = Usuario
-#         fields = ['username', 'email', 'password']
-#         widgets = {
-#             'username': forms.TextInput(attrs={
-#                 'class': 'input-class',
-#                 'placeholder': 'Digite seu nome de usuário'
-#             }),
-#             'email': forms.EmailInput(attrs={
-#                 'class': 'input-class',
-#                 'placeholder': 'Digite seu e-mail'
-#             }),
-#             'password': forms.PasswordInput(attrs={
-#                 'class': 'input-class',
-#                 'placeholder': 'Digite sua senha'
-#             }),
-#         }
+class FormularioCriacaoUsuario(UserCreationForm):
+    email = forms.EmailField(required=True)
+    is_staff = forms.BooleanField(required=False, label="Administrador?")
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2', 'is_staff']

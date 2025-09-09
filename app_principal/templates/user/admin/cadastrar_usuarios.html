@@ -17,11 +17,11 @@
             <div class="card-body">
                 <!-- Nome -->
                 <div class="box">
-                    <input type="text" name="username" value="{{ form.username.value|default_if_none:'' }}" placeholder="Informe o nome">
-                    <label for="">Nome</label>
+                    <input type="text" id="input-name" name="username" value="{{ form.username.value|default_if_none:'' }}" placeholder="Informe o nome">
+                    <label for="input-name">Nome</label>
                 </div>
                 {% if form.username.errors %}
-                    <span class="show-error-message">
+                    <span class="show-error-message" id="name-error-message">
                         <i class="fa-solid fa-circle-exclamation"></i>
                         {{ form.username.errors.0 }}
                     </span>
@@ -29,11 +29,11 @@
 
                 <!-- Email -->
                 <div class="box">
-                    <input type="email" name="email" value="{{ form.email.value|default_if_none:'' }}" placeholder="Informe o email">
-                    <label for="">E-mail</label>
+                    <input type="email" id="input-email" name="email" value="{{ form.email.value|default_if_none:'' }}" placeholder="Informe o email">
+                    <label for="input-email">E-mail</label>
                 </div>
                 {% if form.email.errors %}
-                    <span class="show-error-message">
+                    <span class="show-error-message" id="email-error-message">
                         <i class="fa-solid fa-circle-exclamation"></i>
                         {{ form.email.errors.0 }}
                     </span>
@@ -41,16 +41,29 @@
 
                 <!-- Senha -->
                 <div class="box">
-                    <input type="password" name="password1" placeholder="Informe a senha">
-                    <label for="">Senha</label>
+                    <input type="password" id="input-password" name="password1" placeholder="Informe a senha">
+                    <label for="input-password">Senha</label>
                     <i class="fa-regular fa-eye" id="btn-show-password"></i>
                 </div>
                 {% if form.password1.errors %}
-                    <span class="show-error-message">
+                    <span class="show-error-message" id="password-error-message">
                         <i class="fa-solid fa-circle-exclamation"></i>
                         {{ form.password1.errors.0 }}
                     </span>
                 {% endif %}
+
+                <!-- Confirmação da senha -->
+                <div class="box">
+                    <input type="password" id="input-password2" name="password2" placeholder="Confirme a senha">
+                    <label for="input-password2">Confirmar senha</label>
+                </div>
+                {% if form.password2.errors %}
+                    <span class="show-error-message" id="password2-error-message">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        {{ form.password2.errors.0 }}
+                    </span>
+                {% endif %}
+
 
                 <!-- Privilégios -->
                 <div class="box">
@@ -67,18 +80,22 @@
             </div>
         </form>
     </div>
+
+    <!-- Botão para abrir o modal -->
+    <button id="btn-add-new-user" class="btn btn-primary">Adicionar novo usuário</button>
 {% endblock %}
 
 {% block specific-scripts %}
-    <script src="{% static 'js/user/admin/create.js' %}"></script>
+    <!-- Corrigido para carregar como módulo -->
+    <script type="module" src="{% static 'js/user/admin/create.js' %}"></script>
     <script src="{% static 'js/alert.js' %}"></script>
 
-    <!-- <script>
-        // Abre modal se houver erros no formulário
-        {% if errors %}
+    {% if errors %}
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
-            document.querySelector('.modal-contain-form').classList.remove('close-modal-contain');
+            const modal = document.querySelector('.modal-contain-form');
+            if(modal) modal.classList.remove('close-modal-contain');
         });
-        {% endif %}
-    </script> -->
+    </script>
+    {% endif %}
 {% endblock %}

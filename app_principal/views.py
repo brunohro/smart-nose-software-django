@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.forms import UserCreationForm
 from django.db.models import Q
 from django.contrib import messages
+from .forms import FormularioCriacaoUsuario
 
 def index(request):
     return redirect('login')
@@ -77,18 +78,15 @@ def gerir_usuarios(request):
 
 def cadastrar_usuarios(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = FormularioCriacaoUsuario(request.POST) 
         if form.is_valid():
-            user = form.save(commit=False)
-            # Define se é admin
-            user.is_staff = request.POST.get('is_staff') == 'True'
-            user.save()
+            user = form.save()
             messages.success(request, f'Usuário {user.username} criado com sucesso!')
-            return redirect('criar_usuario')
+            return redirect('gerir_usuarios')
     else:
-        form = UserCreationForm()
+        form = FormularioCriacaoUsuario()
     
-    return render(request, 'user/admin/cadastrar_usuario.html', {
+    return render(request, 'user/admin/cadastrar_usuarios.html', {
         'form': form,
         'errors': form.errors,
         'success_on_insert': messages.get_messages(request),
