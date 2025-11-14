@@ -1,0 +1,63 @@
+.dashboard-config-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.35rem;
+    border: 1px solid var(--separator);
+    background-color: var(--bg);
+    color: var(--font-pri);
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.checkbox-item input[type="checkbox"] {
+    margin-right: 0.3rem;
+}
+
+.submit-button {
+    align-self: flex-start;
+    padding: 0.5rem 1rem;
+    background-color: var(--button);
+    color: var(--font-pri);
+    border: none;
+    border-radius: 0.35rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.submit-button:hover {
+    background-color: var(--hover-button);
+}
+
+.cancel-button {
+    align-self: flex-start;
+    padding: 0.5rem 1rem;
+    background-color: #777; /* cor base do botão cancelar */
+    color: var(--font-pri);
+    border: none;
+    border-radius: 0.35rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.cancel-button:hover {
+    background-color: #5c5c5c; /* cor ao passar o mouse */
+}

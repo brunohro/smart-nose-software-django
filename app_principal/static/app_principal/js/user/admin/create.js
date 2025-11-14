@@ -1,6 +1,8 @@
 import { forms } from "../../utils/forms/forms.js";
 
-function getElements() {
+
+window.addEventListener('load', () => {
+    function getElements() {
     return {
         btnShowAddNewUserForm: document.getElementById("btn-add-new-user"),
     };
@@ -107,3 +109,5 @@ function resetForm(inputs) {
         };
     });
 })();
+
+})

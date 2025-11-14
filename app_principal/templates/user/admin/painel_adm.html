@@ -1,0 +1,11 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block title %} Painel do Administrador {% endblock %}
+
+{% block content %}
+<h1>Painel do administrador</h1>
+{% include "user/admin/personalizar_exibicao.html" %}
+{% include "user/admin/gerir_usuarios.html" %}
+{% include "user/admin/gerir_sensores.html" %}
+{% endblock %}

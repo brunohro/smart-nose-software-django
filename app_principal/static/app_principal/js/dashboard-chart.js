@@ -1,90 +1,52 @@
+document.addEventListener("DOMContentLoaded", function () {
+    const options = {
+        series: [
+            { name: 'MQ-2', data: mq2Data },
+            { name: 'MQ-3', data: mq3Data },
+            { name: 'MQ-5', data: mq5Data },
+            { name: 'MQ-135', data: mq135Data },
+        ],
+        chart: {
+            height: 380,
+            type: "line",
+            zoom: { enabled: false },
+            toolbar: { show: false },
+            foreColor: '#adb5bd'
+        },
+        colors: ['#7c4dff', '#448aff', '#69f0ae', '#f50057'],
+        dataLabels: { enabled: false },
+        stroke: {
+            curve: 'smooth',
+            width: 3
+        },
+        grid: {
+            borderColor: '#495057',
+            strokeDashArray: 4,
+            row: {
+                colors: ['transparent', 'transparent'],
+                opacity: 0.5
+            },
+        },
+        xaxis: {
+            categories: timestamps,
+            title: { text: 'Hora do Dia' },
+        },
+        yaxis: {
+            title: { text: 'Percentual (%)' },
+            min: 0,
+            max: 100
+        },
+        legend: {
+            position: 'top',
+            horizontalAlign: 'right',
+            markers: { strokeWidth: 0 },
+        },
+        tooltip: {
+            theme: 'dark',
+            x: { show: true },
+        }
+    };
 
-var options = {
-    series: [
-        {
-            name: "MQ3",
-            data: mq3Percents,
-        },
-        {
-            name: "MQ5",
-            data: mq5Percents,
-        },
-    ],
-    chart: {
-        height: 400,
-        type: "line",
-        background: "transparent", // Removendo qualquer background
-        dropShadow: {
-            enabled: true,
-            color: "#000",
-            top: 18,
-            left: 7,
-            blur: 4,
-            opacity: 1,
-        },
-        zoom: {
-            enabled: false,
-        },
-        toolbar: {
-            show: false,
-        },
-    },
-    colors: ["#77B6EA", "#00FF00"], // Azul e verde
-    grid: {
-        borderColor: "#ffffff", // Cor da grade em branco
-        row: {
-            colors: ["transparent", "transparent"], // Sem cor de fundo para as linhas
-            opacity: 0.5,
-        },
-    },
-    xaxis: {
-        title: {
-            text: "Horários",
-            style: {
-                color: "#ffffff", // Título do eixo X em branco
-            },
-        },
-        labels: {
-            style: {
-                fontSize: "8px",
-                colors: "#ffffff", // Rótulos do eixo X em branco
-            },
-            step: 24, // Pula a exibição de labels a cada 4 valores
-            rotate: -90, // Inclinação em graus (negativo inclina para a esquerda)
-        },
-    },
-    yaxis: {
-        title: {
-            text: "Níveis (%)",
-            style: {
-                fontSize: "12px",
-                color: "#ffffff", // Título do eixo Y em branco
-            },
-        },
-        labels: {
-            style: {
-                fontSize: "12px",
-                colors: "#ffffff", // Rótulos do eixo Y em branco
-            },
-            formatter: function (value) {
-                return value + "%"; // Adiciona '%' aos valores do eixo Y
-            },
-        },
-    },
-    tooltip: {
-        theme: "dark",
-    },
-    legend: {
-        position: "top",
-        horizontalAlign: "right",
-        floating: true,
-        offsetY: 0, // Ajuste para verificar se a legenda aparece
-        offsetX: -5,
-        labels: {
-            colors: "#fff",
-        },
-    },
-};
-
-var chart = new ApexCharts(document.querySelector("#chart"), options);
-chart.render();
+    const chart = new ApexCharts(document.querySelector("#lineChart"), options);
+    chart.render();
+});

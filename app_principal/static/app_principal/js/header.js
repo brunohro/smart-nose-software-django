@@ -2,6 +2,8 @@ const addEventListenerInBtnAlterMenuMobile = () => {
   const btnMenuMobile = document.getElementById("btn-menu-mobile");
   const menuMobile = document.querySelector(".menu-mobile");
 
+  console.log(btnMenuMobile)
+
   btnMenuMobile.addEventListener("click", () => {
     menuMobile.classList.toggle("show-menu-mobile");
 
@@ -14,3 +16,5 @@ const addEventListenerInBtnAlterMenuMobile = () => {
     }
   });
 };
+
+addEventListenerInBtnAlterMenuMobile()

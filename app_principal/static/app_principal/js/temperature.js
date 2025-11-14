@@ -1,8 +1,13 @@
 function createChart(selector, seriesData, title) {
+
+    let chartColor = "#ffffff"; // cor padrão
+  if (title.toLowerCase().includes("temperatura")) chartColor = "#e74c3c"; // vermelho
+  if (title.toLowerCase().includes("umidade")) chartColor = "#3498db"; // azul
+
   var options = {
     series: [{ data: seriesData }],
     chart: {
-      type: "area", // pode mudar para "bar" ou "line"
+      type: "area", // pode mudar para "bar", "line" ou "area"
       height: 350,
       toolbar: { show: true, tools: { download: false } }
     },
@@ -18,11 +23,11 @@ function createChart(selector, seriesData, title) {
     yaxis: {
       labels: { style: { fontSize: "12px", colors: "#ffffff" } }
     },
-    colors: ["#00E396"],
+    colors: [chartColor],
     dataLabels: {
       enabled: true,
-      formatter: val => val + "%",
-      style: { colors: ["#0c0c0cff"], fontSize: "12px" }
+      formatter: val => val.toFixed(1), 
+      style: { colors: ["#0c0c0c"], fontSize: "12px" }
     },
     grid: { borderColor: "#272f38" }
   };
@@ -32,7 +37,5 @@ function createChart(selector, seriesData, title) {
 }
 
 // Criando gráficos com os dados do Django
-createChart("#chart-mq2", mq2Data, "MQ2 - Sensibilidade");
-createChart("#chart-mq3", mq3Data, "MQ3 - Sensibilidade");
-createChart("#chart-mq5", mq5Data, "MQ5 - Sensibilidade");
-createChart("#chart-mq135", mq135Data, "MQ135 - Sensibilidade");
+createChart("#chart-temperatura", temperaturaData, "Temperatura");
+createChart("#chart-umidade", umidadeData, "Umidade");

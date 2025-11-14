@@ -1,0 +1,50 @@
+{% load static %}
+
+{% block title %}Personalizar Exibição - Admin{% endblock %}
+
+{% block content %}
+<div class="users-list-contain card">
+    <div class="card-header">
+        <h2>Configurações Gerais</h2>
+    </div>
+
+    <form method="post" class="dashboard-config-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="tipo_grafico">Tipo de gráfico:</label>
+            <select id="tipo_grafico" name="tipo_grafico" class="form-control">
+                <option value="line" {% if tipo_grafico == "line" %}selected{% endif %}>Linha</option>
+                <option value="bar" {% if tipo_grafico == "bar" %}selected{% endif %}>Barra</option>
+                <option value="area" {% if tipo_grafico == "area" %}selected{% endif %}>Área</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="intervalo">Tempo para nova leitura:</label>
+        <select id="intervalo" name="intervalo" class="form-control">
+            <option value="60" {% if intervalo == 60 %}selected{% endif %}>1 minuto</option>
+            <option value="300" {% if intervalo == 300 %}selected{% endif %}>5 minutos</option>
+            <option value="600" {% if intervalo == 600 %}selected{% endif %}>10 minutos</option>
+        </select>
+        </div>
+
+
+        <div class="form-group">
+            <label>Quais sensores exibir:</label>
+            <div class="checkbox-group">
+                {% for sensor in sensores_disponiveis %}
+                <div class="checkbox-item">
+                    <input type="checkbox" id="sensor_{{ sensor }}" name="sensores" value="{{ sensor }}"
+                        {% if sensor in sensores_selecionados %}checked{% endif %}>
+                    <label for="sensor_{{ sensor }}">{{ sensor }}</label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <button type="submit" class="submit-button">
+            <i class="fa-solid fa-floppy-disk"></i>
+            Salvar Configurações
+        </button>
+    </form>
+</div>
+{% endblock %}

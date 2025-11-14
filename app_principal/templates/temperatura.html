@@ -1,7 +1,33 @@
 {% extends "layout/base.html" %}
+{% load static %}
 {% block title %}
 Temperatura
 {% endblock %}
 {% block content %}
-Temperatura
+     <div class="card" id="temperatura">
+        <div class="card-header">
+            <h2 id="name-sensor">Temperatura</h2>
+        </div>
+        <div class="sensor-footer">
+            <div id="chart-temperatura"></div>
+        </div>
+    </div>
+
+    <div class="card" id="umidade">
+        <div class="card-header">
+            <h2 id="name-sensor">Umidade</h2>
+        </div>
+        <div class="sensor-footer">
+            <div id="chart-umidade"></div>
+        </div>
+    </div>
+
+{% block script %}
+<script type="module" src="{% static 'app_principal/js/temperature.js' %}"></script>
+<script>
+    const temperaturaData = {{ temperatura_data|safe }};
+    const umidadeData = {{ umidade_data|safe }};
+    const timestamps = {{ timestamps|safe }};
+</script>
+{% endblock %}
 {% endblock %}

@@ -1,11 +1,12 @@
+{% extends "layout/base.html" %}
 {% load static %}
 
-{% block title %} Gerenciamento de Usuários - Admin {% endblock %}
+{% block title %}Experimentos{% endblock %}
 
 {% block content %}
 <div class="users-list-contain card">
     <div class="card-header">
-        <h2>Lista de usuários</h2>
+        <h2>Lista de Experimentos</h2>
     </div>
 
     <div class="input-search-contain">
@@ -17,21 +18,24 @@
         <thead>
             <tr>
                 <th>Nome</th>
-                <th>E-mail</th>
-                <th>Entrou</th>
-                <th>É um administrador</th>
+                <th>Data Início/Fim</th>
+                <th>Ativo</th>
+                <th>Baixar CSV</th>
                 <th>Excluir</th>
             </tr>
         </thead>
         <tbody>
-            {% if users %}
-                {% for user in users %}
+            {% if experimentos %}
+                {% for experimento in experimentos %}
                     <tr>
-                        <td>{{ user.get_full_name|default:user.username }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>{{ user.date_joined|date:"d/m/Y" }}</td>
+                        <td>{{ experimento.nome }}</td>
                         <td>
-                            {% if user.is_staff %}
+                            <div>
+                                {{ experimento.data_inicio|date:"d/m/Y H:i" }} - {{ experimento.data_fim|date:"d/m/Y H:i" }}
+                            </div>
+                        </td>
+                        <td>
+                            {% if experimento.ativo %}
                                 <span style="color: #07a007; border: 1px solid #07a007; padding: 3px 5px; border-radius: 5px;">
                                     Sim
                                 </span>
@@ -42,7 +46,15 @@
                             {% endif %}
                         </td>
                         <td>
-                            <form action="{% url 'remover_usuarios' user.id %}" method="post" class="form-delete-user">
+                            <form action="{% url 'exportar_experimento_csv' experimento.id %}" method="post" class="form-delete-user">
+                                {% csrf_token %}
+                                <button type="submit" id="btn-delete-user">
+                                    <i class="fa-solid fa-file-arrow-down"></i>
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="{% url 'remover_experimento' experimento.id %}" method="post" class="form-delete-user">
                                 {% csrf_token %}
                                 <button type="submit" id="btn-delete-user">
                                     <i class="fa-solid fa-trash"></i>
@@ -54,22 +66,12 @@
             {% else %}
                 <tr>
                     <td colspan="5" style="text-align: center">
-                        <h2>Nenhum usuário encontrado</h2>
+                        <h2>Nenhum experimento encontrado</h2>
                     </td>
                 </tr>
             {% endif %}
         </tbody>
     </table>
-
-    
-    <form action="{% url 'cadastrar_usuarios' %}" method="get">
-        <button type="submit" class="submit-button" id="submit-button">
-            <i class="fa-solid fa-circle-plus"></i>
-            Adicionar novo usuário
-        </button>
-    </form>
-
-
 </div>
 
-{% endblock %}
+{%endblock%}

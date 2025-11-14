@@ -11,12 +11,30 @@
             </div>
         </a>
 
+        <a href="{% url 'listar_experimento' %}">
+            <div class="icon">
+                <i class="fa-solid fa-flask"></i>
+            </div>
+            <div class="description">
+                Experimentos
+            </div>
+        </a>
+
         <a href="{% url 'sensores' %}">
             <div class="icon">
                 <i class="fa-solid fa-tower-broadcast"></i>
             </div>
             <div class="description">
                 sensores
+            </div>
+        </a>
+
+        <a href="{% url 'ultima_leitura' %}">
+            <div class="icon">
+                <i class="fa-solid fa-stopwatch"></i>
+            </div>
+            <div class="description">
+                última leitura
             </div>
         </a>
 
@@ -29,13 +47,13 @@
             </div>
         </a>
 
-        {% if user.is_admin %}
-            <a href="{% url 'dashboard' %}">
+        {% if user.is_staff %}
+            <a href="{% url 'painel_adm' %}">
                 <div class="icon">
-                    <i class="fa-solid fa-users-gear"></i>
+                    <i class="fa-solid fa-user-tie"></i> 
                 </div>
                 <div class="description">
-                    gerir usuários
+                    Painel do Administrador
                 </div>
             </a>
         {% endif %}

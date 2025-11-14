@@ -1,37 +1,37 @@
 {% load static %}
 
-{% block title %} Gerenciamento de Usuários - Admin {% endblock %}
+{% block title %}Gerenciamento de Sensores - Admin{% endblock %}
 
 {% block content %}
 <div class="users-list-contain card">
     <div class="card-header">
-        <h2>Lista de usuários</h2>
+        <h2>Lista de Sensores</h2>
     </div>
 
     <div class="input-search-contain">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="search" placeholder="Buscar por nome..." id="search-input">
+        <input type="search" placeholder="Buscar por tipo de sensor..." id="search-input">
     </div>
 
     <table>
         <thead>
             <tr>
-                <th>Nome</th>
-                <th>E-mail</th>
-                <th>Entrou</th>
-                <th>É um administrador</th>
-                <th>Excluir</th>
+                <th>Nome do sensor</th>
+                <th>Função</th>
+                <th>Data de Cadastro</th>
+                <th>Exibindo</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
-            {% if users %}
-                {% for user in users %}
+            {% if sensores %}
+                {% for sensor in sensores %}
                     <tr>
-                        <td>{{ user.get_full_name|default:user.username }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>{{ user.date_joined|date:"d/m/Y" }}</td>
+                        <td>{{ sensor.nome }}</td>
+                        <td>{{ sensor.funcao }}</td>
+                        <td>{{ sensor.data_criacao|date:"d/m/Y H:i" }}</td>
                         <td>
-                            {% if user.is_staff %}
+                            {% if sensor.exibir %}
                                 <span style="color: #07a007; border: 1px solid #07a007; padding: 3px 5px; border-radius: 5px;">
                                     Sim
                                 </span>
@@ -42,7 +42,7 @@
                             {% endif %}
                         </td>
                         <td>
-                            <form action="{% url 'remover_usuarios' user.id %}" method="post" class="form-delete-user">
+                            <form action="{% url 'remover_sensor' sensor.id %}" method="post" class="form-delete-sensor">
                                 {% csrf_token %}
                                 <button type="submit" id="btn-delete-user">
                                     <i class="fa-solid fa-trash"></i>
@@ -53,23 +53,29 @@
                 {% endfor %}
             {% else %}
                 <tr>
-                    <td colspan="5" style="text-align: center">
-                        <h2>Nenhum usuário encontrado</h2>
+                    <td colspan="4" style="text-align: center;">
+                        <tr>
+                        <td>MQTESTE</td>
+                        <td>GÁS TESTE</td>
+                        <td>00/00/0000 00:00</td>
+                        <td>
+                            <button type="submit" id="btn-delete-user">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                        <h3>Nenhum sensor encontrado</h3>
                     </td>
                 </tr>
             {% endif %}
         </tbody>
     </table>
 
-    
-    <form action="{% url 'cadastrar_usuarios' %}" method="get">
+    <form action="{% url 'cadastrar_sensor' %}" method="get">
         <button type="submit" class="submit-button" id="submit-button">
             <i class="fa-solid fa-circle-plus"></i>
-            Adicionar novo usuário
+            Adicionar novo sensor
         </button>
     </form>
-
-
 </div>
-
 {% endblock %}

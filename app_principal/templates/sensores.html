@@ -5,28 +5,52 @@
 Sensores
 {% endblock %}
 {% block content %}
-   {% if sensors %}
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Tipo</th>
-                    <th>Valor (%)</th>
-                    <th>Criado em</th>
-                </tr>
-            </thead>
-            <tbody> <!-- exibe todos os sensores e seus valores/campos -->
-                {% for sensor in sensors %} 
-                <tr>
-                    <td>{{ sensor.id }}</td>
-                    <td>{{ sensor.tipo_sensor.nome }}</td>
-                    <td>{{ sensor.valor_percentual|floatformat:2 }}</td>
-                    <td>{{ sensor.data_criacao|date:"d/m/Y H:i" }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>Nenhuma leitura encontrada.</p>
-    {% endif %}
+     <div class="card" id="mq2">
+        <div class="card-header">
+            <h2 id="name-sensor">MQ2</h2>
+        </div>
+        <div class="sensor-footer">
+            <div id="chart-mq2"></div>
+        </div>
+    </div>
+
+    <div class="card" id="mq3">
+        <div class="card-header">
+            <h2 id="name-sensor">MQ3</h2>
+        </div>
+        <div class="sensor-footer">
+            <div id="chart-mq3"></div>
+        </div>
+    </div>
+
+    <div class="card" id="mq5">
+        <div class="card-header">
+            <h2 id="name-sensor">MQ5</h2>
+        </div>
+        <div class="sensor-footer">
+            <div id="chart-mq5"></div>
+        </div>
+    </div>
+
+    
+    <div class="card" id="mq135">
+        <div class="card-header">
+            <h2 id="name-sensor">MQ135</h2>
+        </div>
+        <div class="sensor-footer">
+            <div id="chart-mq135"></div>
+        </div>
+    </div>
+
+{% block script %}
+<script type="module" src="{% static 'app_principal/js/sensors-chart.js' %}"></script>
+<script>
+        const mq2Data = {{ mq2_data|safe }};
+        const mq3Data = {{ mq3_data|safe }};
+        const mq5Data = {{ mq5_data|safe }};
+        const mq135Data = {{ mq135_data|safe }};
+        const timestamps = {{ timestamps|safe }};
+    </script>
+{% endblock %}
+
 {% endblock%}

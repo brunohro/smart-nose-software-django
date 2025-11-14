@@ -1,44 +1,105 @@
 {% extends "layout/base.html" %}
+{% load static %}
 
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<div class="contain">
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1 class="dashboard-title">Painel de Monitoramento</h1>
+        <a href="{% url 'painel_adm' %}" class="btn-personalizar">
+            <i class="fas fa-sliders-h"></i> Personalizar Exibição
+        </a>
+    </div>
+    <div class="card">
+        <div id="experimento-header">
+            {% if experimento_ativo %}
+            <i class="icone-pulsante fas fa-circle"></i>
+            {% endif %}
+            <h2 class="grafico-title">Controle de Experimento</h2>
+            <i id="experimento-icon" class="fas fa-chevron-down"></i>
+        </div>
 
-    <main>
+        <div id="experimento-content">
+            {% if experimento_ativo %}
+            <div class="experimento-ativo">
+                <p><strong>Experimento ativo:</strong> {{ experimento_ativo.nome }}</p>
+                <p><strong>Iniciado em:</strong> {{ experimento_ativo.data_inicio|date:"d/m/Y H:i" }}</p>
+
+                <button type="button" class="btn-encerrar"
+                    data-csv-url="{% url 'exportar_experimento_csv' experimento_ativo.id %}"
+                    data-encerrar-url="{% url 'encerrar_experimento' experimento_ativo.id %}"
+                    data-csrf="{{ csrf_token }}" onclick="encerrarEExportarExperimento(this)">
+                    <i class="fas fa-download"></i> Encerrar e Exportar Experimento
+                </button>
+            </div>
+            {% else %}
+            <form method="post" action="{% url 'iniciar_experimento' %}" class="form-experimento">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="nome">Nome do experimento:</label>
+                    <input type="text" name="nome" id="nome" placeholder="Ex: Teste MQ-5 em ambiente fechado" required>
+                </div>
+                <div class="form-group">
+                    <label for="descricao">Descrição (opcional):</label>
+                    <textarea name="descricao" id="descricao" rows="2"
+                        placeholder="Breve descrição do experimento"></textarea>
+                </div>
+                <button type="submit" class="btn-iniciar">
+                    <i class="fas fa-play-circle"></i> Iniciar Experimento
+                </button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="card card-config">
+        <div class="grafico-header">
+            <h2 class="grafico-title">Variação dos Sensores no Dia</h2>
+
+            <form id="date-selector-form" class="form-data" method="get" action="{% url 'dashboard' %}">
+                <input type="date" id="data" name="data" class="date-input" value="{{ data_selecionada }}" required>
+                <button type="submit" class="submit-button">Atualizar</button>
+            </form>
+        </div>
+        <p class="grafico-timestamp">Leituras do dia: {{ data_selecionada|date:"d/m/y" }}</p>
+        <div id="lineChart" class="chart"></div>
+    </div>
+
+    <div class="grid-charts">
         <div class="card">
             <div class="card-header">
-                <h2>Levantamento</h2>
-                <span>20 de Agosto de 2025</span>
-
-                <!-- Formulário de filtro fictício -->
-                <form id="filter-form" method="get" action="#" class="filter-form">
-                    <div class="form-group">
-                        <label for="day">Selecione o dia:</label>
-                        <select name="day" id="day">
-                            <option value="2025-08-20" selected>20/08/2025</option>
-                            <option value="2025-08-19">19/08/2025</option>
-                            <option value="2025-08-18">18/08/2025</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="hourRange">Selecione o intervalo:</label>
-                        <select name="hourRange" id="hourRange">
-                            <option value="6">00:00 - 06:00</option>
-                            <option value="12">06:00 - 12:00</option>
-                            <option value="18">12:00 - 18:00</option>
-                            <option value="24" selected>18:00 - 23:59</option>
-                        </select>
-                    </div>
-                </form>
+                <h2 class="grafico-title" id="name-sensor">Temperatura</h2>
             </div>
-
-            <div id="chart" class="chart-container">
-                <p>Gráfico fictício renderizado aqui!</p>
+            <div class="sensor-footer">
+                <div id="chart-temperatura"></div>
             </div>
         </div>
-    </main>
+
+        <div class="card">
+            <div class="card-header">
+                <h2 class="grafico-title" id="name-sensor">Umidade</h2>
+            </div>
+            <div class="sensor-footer">
+                <div id="chart-umidade"></div>
+            </div>
+        </div>
+    </div>
+
 </div>
 {% endblock %}
 
+{% block script %}
+<script src="{% static 'app_principal/js/dashboard.js' %}"></script>
+<script type="module" src="{% static 'app_principal/js/dashboard-chart.js' %}"></script>
+<script type="module" src="{% static 'app_principal/js/temperature.js' %}"></script>
+<script>
+    const mq2Data = {{ mq2_data| safe }};
+    const mq3Data = {{ mq3_data| safe }};
+    const mq5Data = {{ mq5_data| safe }};
+    const mq135Data = {{ mq135_data| safe }};
+    const temperaturaData = {{ temperatura_data| safe }};
+    const umidadeData = {{ umidade_data| safe }};
+    const timestamps = {{ timestamps| safe }};
+</script>
+{% endblock %}

@@ -1,101 +1,67 @@
 {% extends "layout/base.html" %}
 {% load static %}
 
-{% block title %} Cadastrar usuários - Admin {% endblock %}
+{% block title %}Cadastrar Usuário - Admin{% endblock %}
 
 {% block content %}
-    <!-- Modal do formulário de inserção -->
-    <div class="modal-contain-form {% if not errors %}close-modal-contain{% endif %}">
-        <form action="{% url 'cadastrar_usuarios' %}" method="post" class="card form-add-new-user">
-            {% csrf_token %}
-            <i class="fa-solid fa-xmark" id="btn-close-modal-form"></i>
-
-            <div class="card-header">
-                <h2>Novo usuário</h2>
-            </div>
-
-            <div class="card-body">
-                <!-- Nome -->
-                <div class="box">
-                    <input type="text" id="input-name" name="username" value="{{ form.username.value|default_if_none:'' }}" placeholder="Informe o nome">
-                    <label for="input-name">Nome</label>
-                </div>
-                {% if form.username.errors %}
-                    <span class="show-error-message" id="name-error-message">
-                        <i class="fa-solid fa-circle-exclamation"></i>
-                        {{ form.username.errors.0 }}
-                    </span>
-                {% endif %}
-
-                <!-- Email -->
-                <div class="box">
-                    <input type="email" id="input-email" name="email" value="{{ form.email.value|default_if_none:'' }}" placeholder="Informe o email">
-                    <label for="input-email">E-mail</label>
-                </div>
-                {% if form.email.errors %}
-                    <span class="show-error-message" id="email-error-message">
-                        <i class="fa-solid fa-circle-exclamation"></i>
-                        {{ form.email.errors.0 }}
-                    </span>
-                {% endif %}
-
-                <!-- Senha -->
-                <div class="box">
-                    <input type="password" id="input-password" name="password1" placeholder="Informe a senha">
-                    <label for="input-password">Senha</label>
-                    <i class="fa-regular fa-eye" id="btn-show-password"></i>
-                </div>
-                {% if form.password1.errors %}
-                    <span class="show-error-message" id="password-error-message">
-                        <i class="fa-solid fa-circle-exclamation"></i>
-                        {{ form.password1.errors.0 }}
-                    </span>
-                {% endif %}
-
-                <!-- Confirmação da senha -->
-                <div class="box">
-                    <input type="password" id="input-password2" name="password2" placeholder="Confirme a senha">
-                    <label for="input-password2">Confirmar senha</label>
-                </div>
-                {% if form.password2.errors %}
-                    <span class="show-error-message" id="password2-error-message">
-                        <i class="fa-solid fa-circle-exclamation"></i>
-                        {{ form.password2.errors.0 }}
-                    </span>
-                {% endif %}
-
-
-                <!-- Privilégios -->
-                <div class="box">
-                    <span>Privilégios: </span>
-                    <select name="is_staff">
-                        <option value="False" {% if form.is_staff.value == False %}selected{% endif %}>Usuário</option>
-                        <option value="True" {% if form.is_staff.value == True %}selected{% endif %}>Administrador</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="footer-card">
-                <button type="submit">Inserir</button>
-            </div>
-        </form>
+<div class="card">
+  <div class="shadow-sm border-0">
+    <div class="card-header bg-primary text-white">
+      <h2 class="mb-0">Cadastrar Novo Usuário</h2>
     </div>
 
-    <!-- Botão para abrir o modal -->
-    <button id="btn-add-new-user" class="btn btn-primary">Adicionar novo usuário</button>
-{% endblock %}
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
 
-{% block specific-scripts %}
-    <!-- Corrigido para carregar como módulo -->
-    <script type="module" src="{% static 'js/user/admin/create.js' %}"></script>
-    <script src="{% static 'js/alert.js' %}"></script>
+        <div class="mb-3">
+          <label for="input-name" class="form-label">Nome</label>
+          <input type="text" id="input-name" name="first_name" 
+                 value="{{ form.first_name.value|default_if_none:'' }}" 
+                 placeholder="Informe o nome" class="form-control" required>
+        </div>
 
-    {% if errors %}
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const modal = document.querySelector('.modal-contain-form');
-            if(modal) modal.classList.remove('close-modal-contain');
-        });
-    </script>
-    {% endif %}
+        <div class="mb-3">
+          <label for="input-email" class="form-label">E-mail</label>
+          <input type="email" id="input-email" name="email" 
+                 value="{{ form.email.value|default_if_none:'' }}" 
+                 placeholder="Informe o e-mail" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="input-password" class="form-label">Senha</label>
+          <input type="password" id="input-password" name="password" 
+                 placeholder="Informe a senha" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="input-confirm-password" class="form-label">Confirmar Senha</label>
+          <input type="password" id="input-confirm-password" name="confirm_password" 
+                 placeholder="Confirme a senha" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="input-role" class="form-label">Privilégios</label>
+          <select id="input-role" name="is_staff" class="form-control">
+            <option value="False">Usuário</option>
+            <option value="True">Administrador</option>
+          </select>
+        </div>
+
+        <div class="text-end mt-4">
+          <button type="submit" class="submit-button" id="submit-button">
+            <i class="fa-solid fa-floppy-disk"></i> Salvar
+          </button>
+
+          <button class="cancel-button" id="cancel-button">
+              <a href="{% url 'painel_adm' %}" class="cancel-button" id="cancel-button">
+                Cancelar
+              </a>
+          </button>
+          
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}

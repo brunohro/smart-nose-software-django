@@ -1,0 +1,50 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block title %}Última Leitura{% endblock %}
+
+{% block content %}
+<div class="chart-container">
+    <div class="chart-header">
+        <div class="chart-title-group">
+            <h2 class="chart-title">Leituras Atuais dos Sensores</h2>
+            {% if timestamp %}
+                <div id="timestamp" class="chart-timestamp">
+                    Atualizado em {{ timestamp }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="status-display-group">
+            <div id="temperature-display" class="status-display temperature-display">
+                {% if temperatura_data %}
+                    <div class="sensor-item">{{ temperatura_data }} °C</div>
+                {% else %}
+                    <div class="sensor-item">-- °C</div>
+                {% endif %}
+            </div>
+
+            <div id="humidity-display" class="status-display humidity-display">
+                {% if umidade_data %}
+                    <div class="sensor-item">{{ umidade_data }} %RH</div>
+                {% else %}
+                    <div class="sensor-item">-- %RH</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div id="sensorChart"></div>  
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    const mq2Data = {{ mq2_data|safe }};
+    const mq3Data = {{ mq3_data|safe }};
+    const mq5Data = {{ mq5_data|safe }};
+    const mq135Data = {{ mq135_data|safe }};
+    const timestamps = {{ timestamps|safe }};
+</script>
+<script type="module" src="{% static 'app_principal/js/last-read.js' %}"></script>
+{% endblock %}
