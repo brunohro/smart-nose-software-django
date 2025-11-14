@@ -13,10 +13,7 @@ SECRET_KEY = 'django-insecure-k05%&*%p5cu#z$(o$k@7gmf0%39y1s($0kc%(h20#m1icg4u&z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    "bholiveira.pythonanywhere.com",
-    "www.bholiveira.pythonanywhere.com",
-]
+ALLOWED_HOSTS = []
 
 
 
